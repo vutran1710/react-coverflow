@@ -269,6 +269,11 @@ class Coverflow extends Component {
         window.open(action, '_blank');
       }
 
+      if (typeof action === 'function') {
+        // If action is a function, execute it!
+        action(index);
+      }
+
       this._removePointerEvents();
     } else {
       // Move to the selected figure

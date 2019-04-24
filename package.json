@@ -1,6 +1,6 @@
 {
   "name": "@vutr/react-coverflow",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "description": "Carousel of coverflow effect (forked from andyyou's package)",
   "main": "main.js",
   "repository": {
