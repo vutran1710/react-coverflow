@@ -48,7 +48,7 @@ class Coverflow extends Component {
     infiniteScroll: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.function,
+    onChange: PropTypes.any,
   };
 
   static defaultProps = {
@@ -63,7 +63,7 @@ class Coverflow extends Component {
     infiniteScroll: false,
     width: 'auto',
     height: 'auto',
-    onChange: void 0,
+    onChange: undefined,
   };
 
   state = {
