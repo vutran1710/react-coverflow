@@ -48,6 +48,7 @@ class Coverflow extends Component {
     infiniteScroll: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onChange: PropTypes.function,
   };
 
   static defaultProps = {
@@ -62,6 +63,7 @@ class Coverflow extends Component {
     infiniteScroll: false,
     width: 'auto',
     height: 'auto',
+    onChange: void 0,
   };
 
   state = {
@@ -277,6 +279,7 @@ class Coverflow extends Component {
       const distance = this._center() - index;
       const move = distance * baseWidth;
       this.setState({ current: index, move });
+      this.props.onChange ? this.props.onChange(index) : undefined;
     }
   };
 
@@ -321,14 +324,21 @@ class Coverflow extends Component {
       this._center() - (current - 1 < 0 ? this.props.children.length - 1 : current - 1);
     const move = distance * baseWidth;
 
+    let next = undefined;
+    const callback = idx = () => this.props.onChange && this.props.onChange(idx);
+
     if (current - 1 >= 0) {
-      this.setState({ current: current - 1, move });
+      next = current - 1;
       TOUCH.lastMove = move;
     }
+
     if (current - 1 < 0 && infiniteScroll) {
-      this.setState({ current: this.props.children.length - 1, move });
+      next = this.props.children.length - 1;
       TOUCH.lastMove = move;
     }
+
+    this.setState({ current: next, move }, callback(next));
+
   };
 
   _handleNextFigure = (e) => {
@@ -339,14 +349,20 @@ class Coverflow extends Component {
     const distance = this._center() - (current + 1 >= this.props.children.length ? 0 : current + 1);
     const move = distance * baseWidth;
 
+    let next = undefined;
+    const callback = idx = () => this.props.onChange && this.props.onChange(idx);
+
     if (current + 1 < this.props.children.length) {
-      this.setState({ current: current + 1, move });
+      next = current + 1;
       TOUCH.lastMove = move;
     }
+
     if (current + 1 >= this.props.children.length && infiniteScroll) {
-      this.setState({ current: 0, move });
+      next = 0;
       TOUCH.lastMove = move;
     }
+
+    this.setState({ current: next, move }, callback(next));
   };
 
   _handleWheel(e) {
