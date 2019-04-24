@@ -325,7 +325,7 @@ class Coverflow extends Component {
     const move = distance * baseWidth;
 
     let next = undefined;
-    const callback = idx = () => this.props.onChange && this.props.onChange(idx);
+    const callback = idx => () => this.props.onChange && this.props.onChange(idx);
 
     if (current - 1 >= 0) {
       next = current - 1;
@@ -350,7 +350,7 @@ class Coverflow extends Component {
     const move = distance * baseWidth;
 
     let next = undefined;
-    const callback = idx = () => this.props.onChange && this.props.onChange(idx);
+    const callback = idx => () => this.props.onChange && this.props.onChange(idx);
 
     if (current + 1 < this.props.children.length) {
       next = current + 1;
